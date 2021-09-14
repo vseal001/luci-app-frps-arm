@@ -93,7 +93,7 @@ o.defalut = '0'
 o.placeholder = '0'
 
 o = s:taboption("advanced", Value, "subdomain_host", translate("Subdomain host"), 
-	translatef("if subdomain_host is not empty, you can set subdomain when type is http or https in frpc's configure file; when subdomain is test, the host used by routing is test.frps.com"))
+	translatef("if subdomain_host is not empty, you can set subdomain when type is http or https in frps's configure file; when subdomain is test, the host used by routing is test.frps.com"))
 o.datatype = "host"
 
 o = s:taboption("dashboard", Value, "dashboard_addr", translate("Dashboard addr"), translatef("dashboard addr's default value is same with bind_addr"))
