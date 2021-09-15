@@ -9,8 +9,8 @@ local sys = require "luci.sys"
 local m, s, o
 local server_table = { }
 
-local function frps_version()
-	local file = uci:get("frps", "main", "client_file")
+local function frps-arm_version()
+	local file = uci:get("frps-arm", "main", "client_file")
 
 	if not file or file == "" or not fs.stat(file) then
 		return "<em style=\"color: red;\">%s</em>" % translate("Invalid Server File")
@@ -27,16 +27,16 @@ local function frps_version()
 	return translatef("Version: %s", version)
 end
 
-m = Map("frps", "%s - %s" % { translate("Frps"), translate("Common Settings") },
+m = Map("frps-arm", "%s - %s" % { translate("frps-arm"), translate("Common Settings") },
 "<p>%s</p><p>%s</p>" % {
 	translate("Frp is a fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet."),
 	translatef("For more information, please visit: %s",
 		"<a href=\"https://github.com/fatedier/frp\" target=\"_blank\">https://github.com/fatedier/frp</a>")
 })
 
-m:append(Template("frps/status_header"))
+m:append(Template("frps-arm/status_header"))
 
-s = m:section(NamedSection, "main", "frps")
+s = m:section(NamedSection, "main", "frps-arm")
 s.addremove = false
 s.anonymous = true
 
@@ -46,7 +46,7 @@ s:tab("dashboard", translate("Dashboard Options"))
 
 o = s:taboption("general", Flag, "enabled", translate("Enabled"))
 
-o = s:taboption("general", Value, "client_file", translate("Server File"), frps_version())
+o = s:taboption("general", Value, "client_file", translate("Server File"), frps-arm_version())
 o.datatype = "file"
 o.rmempty = false
 
@@ -61,7 +61,7 @@ o = s:taboption("general", Flag, "enable_logging", translate("Enable logging"))
 
 o = s:taboption("general", Value, "log_file", translate("Log file"))
 o:depends("enable_logging", "1")
-o.placeholder = "/var/log/frps.log"
+o.placeholder = "/var/log/frps-arm.log"
 
 o = s:taboption("general", ListValue, "log_level", translate("Log level"))
 o:depends("enable_logging", "1")
@@ -93,7 +93,7 @@ o.defalut = '0'
 o.placeholder = '0'
 
 o = s:taboption("advanced", Value, "subdomain_host", translate("Subdomain host"), 
-	translatef("if subdomain_host is not empty, you can set subdomain when type is http or https in frps's configure file; when subdomain is test, the host used by routing is test.frps.com"))
+	translatef("if subdomain_host is not empty, you can set subdomain when type is http or https in frps-arm's configure file; when subdomain is test, the host used by routing is test.frps-arm.com"))
 o.datatype = "host"
 
 o = s:taboption("dashboard", Value, "dashboard_addr", translate("Dashboard addr"), translatef("dashboard addr's default value is same with bind_addr"))

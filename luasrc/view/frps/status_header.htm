@@ -8,20 +8,20 @@ local dsp = require "luci.dispatcher"
 -%>
 
 <fieldset class="cbi-section">
-	<p id="frps_status">
+	<p id="frps-arm_status">
 		<em><%:Collecting data...%></em>
 	</p>
 </fieldset>
 
 <script type="text/javascript">//<![CDATA[
-	XHR.poll(5, '<%=dsp.build_url("admin/services/frps/status")%>', null,
+	XHR.poll(5, '<%=dsp.build_url("admin/services/frps-arm/status")%>', null,
 		function (x, data) {
 			if (x.status !== 200 || !data) {
 				return;
 			}
 
-			var frpsStatusElm = document.getElementById('frps_status');
-			frpsStatusElm.innerHTML = data.running
+			var frps-armStatusElm = document.getElementById('frps-arm_status');
+			frps-armStatusElm.innerHTML = data.running
 				? '<%:Running%>'
 				: '<%:Not Running%>';
 		}

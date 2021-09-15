@@ -7,7 +7,7 @@
 START=99
 USE_PROCD=1
 
-NAME="frps"
+NAME="frps-arm"
 CONFIG_FOLDER="/var/etc/$NAME"
 
 _log() {
@@ -51,13 +51,13 @@ append_setting() {
 	fi
 }
 
-frps_scetion_validate() {
-	uci_validate_section "$NAME" "frps" "$1" \
+frps-arm_scetion_validate() {
+	uci_validate_section "$NAME" "frps-arm" "$1" \
 		'enabled:bool:0' \
-		'client_file:file:/usr/bin/frps' \
+		'client_file:file:/usr/bin/frps-arm' \
 		'run_user:string' \
 		'enable_logging:bool:0' \
-		'log_file:string:/var/log/frps.log' \
+		'log_file:string:/var/log/frps-arm.log' \
 		'log_level:or("trace", "debug", "info", "warn", "error"):warn' \
 		'log_max_days:uinteger:3' \
 		'disable_log_color:or("true", "false")' \
@@ -93,7 +93,7 @@ add_rule_extra_option() {
 
 create_config_file() {
 	local config_file="$1"
-	local tmp_file="$(mktemp /tmp/frps-XXXXXX)"
+	local tmp_file="$(mktemp /tmp/frps-arm-XXXXXX)"
 
 	echo "[common]" > "$tmp_file"
 	
@@ -103,7 +103,7 @@ create_config_file() {
 
 	if [ "x$enable_logging" = "x1" ] ; then
 		if [ -z "$log_file" ]; then
-			log_file="/var/log/frps.log"
+			log_file="/var/log/frps-arm.log"
 		fi
 
 		append_options "$tmp_file" \
@@ -140,7 +140,7 @@ create_config_file() {
 start_instance() {
 	local section="$1"
 
-	if ! frps_scetion_validate "$section" ; then
+	if ! frps-arm_scetion_validate "$section" ; then
 		_err "Config validate failed."
 		return 1
 	fi
@@ -157,7 +157,7 @@ start_instance() {
 
 	test -d "$CONFIG_FOLDER" || mkdir -p "$CONFIG_FOLDER"
 
-	local config_file="$CONFIG_FOLDER/frps.$section.ini"
+	local config_file="$CONFIG_FOLDER/frps-arm.$section.ini"
 
 	create_config_file "$config_file"
 
@@ -185,5 +185,5 @@ service_triggers() {
 
 start_service() {
 	config_load "$NAME"
-	config_foreach start_instance "frps"
+	config_foreach start_instance "frps-arm"
 }

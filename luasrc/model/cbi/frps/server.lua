@@ -5,9 +5,9 @@ local dsp = require "luci.dispatcher"
 
 local m, s, o
 
-m = Map("frps", "%s - %s" % { translate("Frps"), translate("FRPS Server setting") })
+m = Map("frps-arm", "%s - %s" % { translate("frps-arm"), translate("frps-arm Server setting") })
 
-s = m:section(NamedSection, "main", "frps")
+s = m:section(NamedSection, "main", "frps-arm")
 s.anonymous = true
 s.addremove = false
 
@@ -29,7 +29,7 @@ o = s:option(Value, "bind_udp_port", translate("UDP bind port"),
 o.datatype = "port"
 
 o = s:option(Value, "kcp_bind_port", translate("KCP bind port"), 
-    translatef("Optional: udp port used for kcp protocol, it can be same with 'bind port'; if not set, kcp is disabled in frps"))
+    translatef("Optional: udp port used for kcp protocol, it can be same with 'bind port'; if not set, kcp is disabled in frps-arm"))
 o.datatype = "port"
 
 o = s:option(Value, "vhost_http_port", translate("vhost http port"), 

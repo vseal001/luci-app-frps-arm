@@ -1,23 +1,23 @@
 #!/bin/sh
 
 uci -q batch <<-EOF >/dev/null
-	delete ucitrack.@frps[-1]
-	add ucitrack frps
-	set ucitrack.@frps[-1].init=frps
+	delete ucitrack.@frps-arm[-1]
+	add ucitrack frps-arm
+	set ucitrack.@frps-arm[-1].init=frps-arm
 	commit ucitrack
 EOF
 
-frps=$(uci -q get frps.@frps[-1])
+frps-arm=$(uci -q get frps-arm.@frps-arm[-1])
 
-if [ -z "$frps" ]; then
-	uci -q add frps frps
+if [ -z "$frps-arm" ]; then
+	uci -q add frps-arm frps-arm
 fi
 
-if [ "x$frps" != "xmain" ]; then
+if [ "x$frps-arm" != "xmain" ]; then
 	uci -q batch <<-EOF >/dev/null
-		rename frps.@frps[-1]="main"
-		set frps.main.enabled="0"
-		commit frps
+		rename frps-arm.@frps-arm[-1]="main"
+		set frps-arm.main.enabled="0"
+		commit frps-arm
 	EOF
 fi
 
