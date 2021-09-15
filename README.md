@@ -1,7 +1,6 @@
 # luci-app-frps-arm
-适用于arm的图形化frps
+- 适用于arm的图形化frps
 
-# luci-app-frps
 - 原脚本 [lwz322/luci-app-frps](https://github.com/lwz322/luci-app-frps)
 
 - 本脚本适用范围
